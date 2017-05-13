@@ -4,7 +4,7 @@ const dom = new jsdom.JSDOM();
 const $ = require('jquery')(dom.window);
 const telephone = require('./telephone');
 
-instantBot({host: 'glitch', rate: '1 hour'}, (bot) => {
+instantBot({host: 'glitch', service: 'mastodon', rate: '1 hour'}, (bot) => {
 
   console.log('running drilophone...');
 
