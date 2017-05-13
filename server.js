@@ -1,28 +1,20 @@
-const chewiePics = require('chewie-pics');
-const assets = require('npm-assets');
-const fs = require('fs');
 const instantBot = require('instant-bot');
+const jsdom = require('jsdom');
+const dom = new jsdom.JSDOM();
+const $ = require('jquery')(dom.window);
+const telephone = require('./telephone');
 
-assets(process.cwd(), 'assets');
+instantBot({host: 'glitch', rate: '1 hour'}, (bot) => {
 
-const loadChewiePic = () => {
-    return `./assets/` + chewiePics.random();
-}
+  console.log('running drilophone...');
 
-const loadChewiePicData = () => {
-    return fs.readFileSync(loadChewiePic(), {encoding: 'base64'});
-}
-
-
-instantBot({host: 'glitch', rate: '5m'}, (bot) => {
-
-  console.log('running chewie pics...');
-
-  bot.client.post('media/upload', {media_data: loadChewiePicData()}).then((res) => {
-    console.log(res.data);
-    return res.data.media_id_string;
-  }).then((id) => {
-    return bot.client.post('statuses/update', {status: "🐶", media_ids: [id]});
-  });
+  const lastPost = bot.recentPosts[0]
+  if(lastPost) {
+    const lastPostText = $(lastPost.content).text();
+    const newPost = telephone.mutate(lastPostText);
+    bot.post(newPost);
+  } else {
+    bot.post("another day volunteering at the betsy ross museum. everyone keeps asking me if they can fuck the flag. buddy, they wont even let me fuck it")
+  }
 
 });
