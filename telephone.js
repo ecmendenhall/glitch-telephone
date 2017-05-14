@@ -6,7 +6,7 @@ const _ = require('lodash');
 
 function loadModel() {
   return new Promise((resolve, reject) => {
-    w2v.loadModel('drilmodel.txt', (err, model) => {
+    w2v.loadModel('./assets/drilmodel.txt', (err, model) => {
       if (err) {
         reject(err);
       }
