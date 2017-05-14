@@ -24,21 +24,32 @@ describe('Telephone', () => {
   });
 
   test('generates mutations for the word', () => {
-    expect(telephone.mutations('buddy')).toEqual({
-      word: 'buddy',
-      mutations: [
-        "boudoir",
-        "boudoin",
-        "buendia",
-        "boothe",
-        "budyonnovsk",
-        "uday",
-        "booee",
-        "buie",
-        "bouie",
-        "buddha",
-        "buday"
-      ]});
+    return telephone.loadModel().then((model) => {
+      expect(telephone.mutations('buddy', model)).toEqual({
+        word: 'buddy',
+        mutations: [
+          "buddie",
+          "buddy",
+          "budny",
+          "budke",
+          "budney",
+          "bunney",
+          "bussey",
+          "bussi",
+          "bussie",
+          "busey(1)",
+          "buffy",
+          "buzzy",
+          "bucky",
+          "buckey",
+          "buggy",
+          "bunnie",
+          "bunny",
+          "bovee",
+          "boddy",
+          "boddie"
+        ]});
+      });
   });
 
   test('replaces a word in the phrase', () => {
